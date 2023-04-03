@@ -49,17 +49,21 @@ bool PE::IsDotNet(){
         for(Import i : imports) {
             if (i.name() == "mscorelib.dll") {
                 if(binary->data_directory(DATA_DIRECTORY::CLR_RUNTIME_HEADER).RVA() > 0) {
+                    PRINT_DEBUG("Detected .NET\n");
                     return true;
                 }
             }
             if (i.name() == "mscoree.dll") {
                 if(binary->data_directory(DATA_DIRECTORY::CLR_RUNTIME_HEADER).RVA() > 0) {
+                    PRINT_DEBUG("Detected .NET\n");
                     return true;
                 }
             }
         }
+        PRINT_DEBUG("Did not detect .NET\n");
         return false;
     } catch(LIEF::bad_format const&) {
+        PRINT_DEBUG("An error occurred while trying to detect .NET.\n")
         return false;
     }
 }

@@ -22,7 +22,7 @@
 #define BINLEX_EXPORT
 #endif
 
-#define ARGS_MODE_COUNT 9
+#define ARGS_MODE_COUNT 10
 
 #define ARGS_IO_TYPE_UNKNOWN 0
 #define ARGS_IO_TYPE_FILE    1
@@ -41,7 +41,7 @@ namespace binlex{
     class Args {
         public:
             char version[7] = "v1.1.1";
-            const char *modes[ARGS_MODE_COUNT] = {"elf:x86", "elf:x86_64", "pe:x86", "pe:x86_64", "raw:x86", "raw:x86_64", "raw:cil", "pe:cil", "auto"};
+            const char *modes[ARGS_MODE_COUNT] = {"elf:x86", "elf:x86_64", "pe:x86", "pe:x86_64", "raw:x86", "raw:x86_64", "raw:cil", "pe:cil", "pe:cil64", "auto"};
             struct{
                 char *input;
                 int io_type;

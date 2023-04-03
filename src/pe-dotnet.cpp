@@ -260,6 +260,10 @@ bool DOTNET::ReadVector(const std::vector<uint8_t> &data){
                 binary_arch = BINARY_ARCH_X86;
                 binary_mode = BINARY_MODE_CIL;
                 break;
+            case MACHINE_TYPES::IMAGE_FILE_MACHINE_AMD64:
+                binary_arch = BINARY_ARCH_X86_64;
+                binary_mode = BINARY_MODE_CIL;
+                break;
             default:
                 binary_arch = BINARY_ARCH_UNKNOWN;
                 binary_mode = BINARY_MODE_UNKNOWN;
@@ -267,7 +271,7 @@ bool DOTNET::ReadVector(const std::vector<uint8_t> &data){
         }
     }
     CalculateFileHashes(data);
-    if (IsDotNet() == false) return false;
+    //if (IsDotNet() == false) return false;
     if (Parse() == false) return false;
     ParseSections();
     return true;

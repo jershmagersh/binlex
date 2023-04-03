@@ -1,4 +1,5 @@
 #include "args.h"
+#include "common.h"
 
 using namespace binlex;
 

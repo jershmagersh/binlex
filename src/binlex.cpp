@@ -112,6 +112,26 @@ int main(int argc, char **argv){
         disassembler.WriteTraits();
         return EXIT_SUCCESS;
     }
+    if (g_args.options.mode == "pe:cil64" &&
+        g_args.options.io_type == ARGS_IO_TYPE_FILE){
+        // TODO: This should be valid for both x86-86 and x86-64
+        // we need to do this more generic
+        DOTNET pe64;
+        pe64.SetArchitecture(BINARY_ARCH_X86_64, BINARY_MODE_CIL);
+        if (pe64.ReadFile(g_args.options.input) == false) return 1;
+        CILDisassembler disassembler(pe64);
+        PRINT_DEBUG("[binlex.cpp] analyzing %lu sections for CIL byte code.\n", pe64._sections.size());
+        int si = 0;
+        for (auto section : pe64._sections) {
+            if (section.offset == 0) continue;
+            if (disassembler.Disassemble(section.data, section.size, si) == false){
+                    continue;
+            }
+            si++;
+        }
+        disassembler.WriteTraits();
+        return EXIT_SUCCESS;
+    }
     if (g_args.options.mode == "pe:x86" &&
         g_args.options.io_type == ARGS_IO_TYPE_FILE){
         PE pe32;
